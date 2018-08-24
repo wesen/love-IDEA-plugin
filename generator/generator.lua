@@ -124,15 +124,20 @@ local function generate()
         docFile:write( "SIGNATURES = {\r\n" )
         docFile:write( '["love.' .. m.name .. '"] = [=[love.' .. m.name .. ' - ' .. m.description .. ']=],\r\n' )
 
+        print(m.name)
+
         for _, f in ipairs( m.functions ) do
             sourceFile:write( 'function ' .. f.name .. '() end\r\n' )
-            -- Find the args of the first variant
+            print('f '..f.name)
             local args = {}
-            local variant = f.variants[1]
+            -- Find the args of the first variant
+            if f.variants then
+                local variant = f.variants[1]
 
-            if variant.arguments then
-                for _, a in ipairs( variant.arguments ) do
-                    table.insert( args, a.name )
+                if variant.arguments then
+                    for _, a in ipairs( variant.arguments ) do
+                        table.insert( args, a.name )
+                    end
                 end
             end
 
